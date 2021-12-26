@@ -9,4 +9,19 @@ export const NewsArea = styled.section`
   background-size: cover;
   background-repeat: no-repeat;
   clip-path: polygon(0 40%, 100% 0, 100% 100%, 0 100%);
+  .area {
+    height: inherit;
+    width: 1200px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: column;
+    margin: auto;
+    h1 {
+      font-size: 40px;
+    }
+    .subArea {
+      max-width: 470px;
+    }
+  }
 `;

@@ -12,7 +12,7 @@ export default function Header() {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/">Categorias</Link>
+              <Link to="/">Games</Link>
             </li>
             <li>
               <Link to="/">Home</Link>

@@ -2,7 +2,7 @@
 body {
   background-color: #1c1c1c;
   color: white;
-  font-family: "Kanit", sans-serif;
+  font-family: "Kanit", sans-serif !important;
 }
 
 ul li {
@@ -39,6 +39,7 @@ button {
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
+  font-family: "Kanit", sans-serif;
 }
 
 .genres {
@@ -56,4 +57,24 @@ button {
     rgba(85, 197, 122, 1) 60%,
     rgba(126, 213, 111, 1) 100%
   );
+}
+
+form {
+  display: flex;
+  margin: 20px 0px 40px 0px;
+}
+input {
+  background: #222;
+  border-radius: 20px 5px 20px 20px;
+  color: white;
+  padding: 20px 20px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: "Kanit", sans-serif;
+}
+::placeholder {
+  color: white;
 }
