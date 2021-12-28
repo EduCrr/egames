@@ -21,6 +21,9 @@ export const HeaderArea = styled.header`
     .menu,
     ul {
       display: flex;
+      ul li {
+        margin-left: 25px;
+      }
       a {
         transition: all ease 0.4s;
         &:hover {

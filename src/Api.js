@@ -27,6 +27,28 @@ export default {
     );
     return json;
   },
+  getSingleGame: async (id) => {
+    let { data: json } = await api.get(`/games/${id}?key=${API_KEY}`);
+    return json;
+  },
+  getScreenshots: async (slug) => {
+    let { data: json } = await api.get(
+      `/games/${slug}/screenshots?key=${API_KEY}`
+    );
+    return json;
+  },
+  getAchievements: async (id) => {
+    let { data: json } = await api.get(
+      `/games/${id}/achievements?key=${API_KEY}`
+    );
+    return json;
+  },
+  getSameSeries: async (id) => {
+    let { data: json } = await api.get(
+      `/games/${id}/game-series?key=${API_KEY}`
+    );
+    return json;
+  },
 };
 
 //API 598bb83df21b4392b44472accd500725

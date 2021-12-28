@@ -5,10 +5,9 @@ export default function Future() {
   const [game, setGame] = useState({});
   const getUpcoming = async () => {
     let json = await Api.getFuture();
-    let singleGame = Math.floor(Math.random() * json.results.length);
-    let chosen = json.results[singleGame];
-    setGame(chosen);
-    console.log(chosen);
+    let randomGame = Math.floor(Math.random() * json.results.length);
+    setGame(json.results[randomGame]);
+    console.log(json.results[randomGame]);
   };
   let g = [];
   for (let i in game.genres) {
@@ -35,7 +34,6 @@ export default function Future() {
                     <p key={k}>{item}</p>
                   ))}
                 </div>
-                <button style={{ marginTop: "20px" }}>More</button>
               </div>
             </div>
           </div>

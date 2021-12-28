@@ -7,6 +7,7 @@ export const CarouselArea = styled.section`
     transform: scale(0.9);
     border-radius: 5px 20px 20px 20px;
     transition: all ease 0.4s;
+
     &:hover {
       transform: scale(1);
     }
@@ -32,5 +33,12 @@ export const CarouselArea = styled.section`
         justify-content: space-between;
       }
     }
+  }
+  .slick-prev:before {
+    content: url("/assets/left.png");
+  }
+
+  .slick-next:before {
+    content: url("/assets/right.png");
   }
 `;

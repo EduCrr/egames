@@ -2,14 +2,17 @@ import styled from "styled-components";
 
 export const FooterArea = styled.footer`
   max-width: 1200px;
-  margin: 4rem auto;
+  margin: 2rem auto;
 
   .content {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-
+  ul,
+  li {
+    margin-bottom: 10px;
+  }
   .footerInfo {
     strong {
       color: white;
