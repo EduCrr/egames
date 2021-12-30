@@ -62,7 +62,8 @@ form {
   display: flex;
   margin: 20px 0px 40px 0px;
 }
-input {
+input,
+select {
   background: #222;
   border-radius: 20px 5px 20px 20px;
   color: white;

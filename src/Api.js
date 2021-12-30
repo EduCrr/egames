@@ -4,9 +4,19 @@ const API_KEY = "598bb83df21b4392b44472accd500725";
 const api = axios.create({
   baseURL: "https://api.rawg.io/api",
 });
+
+const basicFetch = async (endpoint) => {
+  let { data: json } = await api.get(`${endpoint}`);
+  return json;
+};
+
 export default {
   getFeatured: async (id) => {
     let { data: json } = await api.get(`/games/${id}?key=${API_KEY}`);
+    return json;
+  },
+  getGenres: async () => {
+    let { data: json } = await api.get(`/genres?key=${API_KEY}`);
     return json;
   },
   getPopularYear: async () => {
@@ -49,6 +59,64 @@ export default {
     );
     return json;
   },
+  getGamesList: async (page = 1) => {
+    return [
+      {
+        slug: "action",
+        title: "Ação",
+        items: await basicFetch(
+          `/games?genres=4&key=${API_KEY}&page_size=20&page=${page}`
+        ),
+      },
+      {
+        slug: "rpg",
+        title: "RPG",
+        items: await basicFetch(
+          `/games?genres=5&key=${API_KEY}&page_size=20&page=${page}`
+        ),
+      },
+      {
+        slug: "racing",
+        title: "Racing",
+        items: await basicFetch(
+          `/games?genres=1&key=${API_KEY}&page_size=20&page=${page}`
+        ),
+      },
+      {
+        slug: "multiplayer",
+        title: "Multiplayer",
+        items: await basicFetch(
+          `/games?genres=59&key=${API_KEY}&page_size=20&page=${page}`
+        ),
+      },
+      {
+        slug: "fighting",
+        title: "Fighting",
+        items: await basicFetch(
+          `/games?genres=6&key=${API_KEY}&page_size=20&page=${page}`
+        ),
+      },
+    ];
+  },
+  getGenreAndYear: async (genre, year = "") => {
+    if (year !== "") {
+      let { data: json } = await api.get(
+        `/games?genres=${genre}&key=${API_KEY}&dates=${year}-01-01,${year}-12-31&ordering=-added&page_size=30`
+      );
+      return json;
+    } else if (year === "") {
+      let { data: json } = await api.get(
+        `/games?genres=${genre}&key=${API_KEY}&page_size=40`
+      );
+      return json;
+    }
+  },
+  getSearchingFor: async (year = "") => {
+    let { data: json } = await api.get(
+      `/games?dates=${year}-01-01,${year}-12-31&ordering=-added&key=${API_KEY}&page_size=30`
+    );
+    return json;
+  },
 };
 
 //API 598bb83df21b4392b44472accd500725
@@ -62,50 +130,3 @@ export default {
 //red dead https://api.rawg.io/api/games/28?key=598bb83df21b4392b44472accd500725&
 //control https://api.rawg.io/api/games/58812?key=598bb83df21b4392b44472accd500725&
 //https://media.rawg.io/media/games/253/2534a46f3da7fa7c315f1387515ca393.jpg
-
-/*
-id": 4,
-      "name": "Action",
-       "id": 2,
-      "name": "Shooter",
-      "id": 3,
-      "name": "Adventure",
-      id": 31,
-      "name": "Singleplayer",
-      "id": 13,
-      "name": "Atmospheric",
-      "id": 1,
-      "name": "Survival",
-
-      id": 15,
-      "name": "Stealth",
-      id": 34,
-      "name": "Violent",
-      "id": 69,
-      "name": "Action-Adventure",
-      "id": 37796,
-      "name": "exclusive",
-      
-      "id": 7,
-      "name": "Multiplayer",
-      "id": 18,
-      "name": "Co-op",
-      id": 36,
-      "name": "Open World",
-
-        "id": 8,
-      "name": "First-Person",
-        
-       "id": 149,
-      "name": "Third Person",
-      "id": 30,
-      "name": "FPS",
-      "id": 6,
-      "name": "Exploration",
-      "id": 34,
-      "name": "Violent",
-      id": 144,
-      "name": "Crime",
-      "id": 578,
-      "name": "Masterpiece",
-      */

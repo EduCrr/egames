@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CarouselArea = styled.section`
+export const ListGamesArea = styled.section`
   display: flex;
   flex-wrap: wrap;
   width: 100%;

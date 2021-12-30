@@ -30,7 +30,6 @@ export default function Game() {
   };
   const loadSameGame = async () => {
     let json = await Api.getSameSeries(id);
-    console.log(json);
     setSame(json.results);
   };
 
@@ -102,7 +101,7 @@ export default function Game() {
             <h3>Platforms</h3>
 
             {game.platforms &&
-              game.platforms.map((item, k, length) => (
+              game.platforms.map((item, k) => (
                 <div style={{ display: "inline" }} key={k}>
                   {(k ? ", " : "") +
                     item.platform.name +
@@ -124,7 +123,14 @@ export default function Game() {
           </div>
         </div>
         <div className="achievements">
-          <h2>Achievements</h2>
+          {achievements.results && achievements.results.length > 0 ? (
+            <h2>Achievements</h2>
+          ) : (
+            <>
+              <h2>Achievements</h2>
+              <p>Not updated</p>
+            </>
+          )}
           <Slider {...settings}>
             {achievements.results &&
               achievements.results.map((item, k) => (
@@ -149,8 +155,17 @@ export default function Game() {
           ))}
       </div>
       <div className="sameGames">
-        <h2>Same series</h2>
-        {same && <Carousel data={same} />}
+        {same && same.length > 0 ? (
+          <>
+            <h2>Same series</h2>
+            {same && <Carousel data={same} />}
+          </>
+        ) : (
+          <>
+            <h2>Same series</h2>{" "}
+            <p style={{ textAlign: "center" }}>Not updated</p>
+          </>
+        )}
       </div>
     </GameArea>
   );
