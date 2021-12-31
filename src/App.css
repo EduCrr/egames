@@ -58,10 +58,6 @@ button {
   );
 }
 
-form {
-  display: flex;
-  margin: 20px 0px 40px 0px;
-}
 input,
 select {
   background: #222;

@@ -5,11 +5,17 @@ export const GamesArea = styled.section`
     max-width: 1200px;
     margin: 5rem auto;
     display: flex;
-    form {
-      input {
-        margin-right: 20px;
-      }
+    justify-content: space-between;
+
+    input,
+    select {
+      margin-top: 20px;
+      margin-right: 20px;
     }
+  }
+  .reset {
+    margin-top: 20px !important;
+    display: flex;
   }
   .GamesList {
     max-width: 1200px;

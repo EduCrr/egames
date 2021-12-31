@@ -65,10 +65,54 @@ export default {
         slug: "action",
         title: "Ação",
         items: await basicFetch(
-          `/games?genres=4&key=${API_KEY}&page_size=20&page=${page}`
+          `/games?genres=4&key=${API_KEY}&page_size=2&page=${page}`
         ),
       },
-      {
+    ];
+  },
+  getGenreAndYear: async (genre, year = "") => {
+    if (year !== "") {
+      let { data: json } = await api.get(
+        `/games?genres=${genre}&key=${API_KEY}&dates=${year}-01-01,${year}-12-31&ordering=-added&page_size=30`
+      );
+      return json;
+    } else if (year === "") {
+      let { data: json } = await api.get(
+        `/games?genres=${genre}&key=${API_KEY}&page_size=40`
+      );
+      return json;
+    }
+  },
+  getSearchingFor: async (year = "") => {
+    let { data: json } = await api.get(
+      `/games?dates=${year}-01-01,${year}-12-31&ordering=-added&key=${API_KEY}&page_size=30`
+    );
+    return json;
+  },
+  getSearchSingleGame: async (slug) => {
+    if (slug !== "") {
+      let { data: json } = await api.get(
+        `/games?search=${slug}&key=${API_KEY}`
+      );
+      return json;
+    }
+  },
+};
+
+//API 598bb83df21b4392b44472accd500725
+//GET https://api.rawg.io/api/platforms?key=598bb83df21b4392b44472accd500725
+//GET https://api.rawg.io/api/games?key=598bb83df21b4392b44472accd500725&dates=2019-09-01,2019-09-30&platforms=18,1,7
+// screenshots slug game https://api.rawg.io/api/games/the-last-of-us-part-2/screenshots?key=598bb83df21b4392b44472accd500725&
+//generos https://api.rawg.io/api/genres?key=598bb83df21b4392b44472accd500725
+//https://api.rawg.io/api/games?genres=4&key=598bb83df21b4392b44472accd500725&page=2
+//the last https://api.rawg.io/api/games/51325?key=598bb83df21b4392b44472accd500725&
+//cyber https://api.rawg.io/api/games/41494?key=598bb83df21b4392b44472accd500725&
+//red dead https://api.rawg.io/api/games/28?key=598bb83df21b4392b44472accd500725&
+//control https://api.rawg.io/api/games/58812?key=598bb83df21b4392b44472accd500725&
+//https://media.rawg.io/media/games/253/2534a46f3da7fa7c315f1387515ca393.jpg
+
+/*
+ {
         slug: "rpg",
         title: "RPG",
         items: await basicFetch(
@@ -96,37 +140,5 @@ export default {
           `/games?genres=6&key=${API_KEY}&page_size=20&page=${page}`
         ),
       },
-    ];
-  },
-  getGenreAndYear: async (genre, year = "") => {
-    if (year !== "") {
-      let { data: json } = await api.get(
-        `/games?genres=${genre}&key=${API_KEY}&dates=${year}-01-01,${year}-12-31&ordering=-added&page_size=30`
-      );
-      return json;
-    } else if (year === "") {
-      let { data: json } = await api.get(
-        `/games?genres=${genre}&key=${API_KEY}&page_size=40`
-      );
-      return json;
-    }
-  },
-  getSearchingFor: async (year = "") => {
-    let { data: json } = await api.get(
-      `/games?dates=${year}-01-01,${year}-12-31&ordering=-added&key=${API_KEY}&page_size=30`
-    );
-    return json;
-  },
-};
 
-//API 598bb83df21b4392b44472accd500725
-//GET https://api.rawg.io/api/platforms?key=598bb83df21b4392b44472accd500725
-//GET https://api.rawg.io/api/games?key=598bb83df21b4392b44472accd500725&dates=2019-09-01,2019-09-30&platforms=18,1,7
-// screenshots slug game https://api.rawg.io/api/games/the-last-of-us-part-2/screenshots?key=598bb83df21b4392b44472accd500725&
-//generos https://api.rawg.io/api/genres?key=598bb83df21b4392b44472accd500725
-//https://api.rawg.io/api/games?genres=4&key=598bb83df21b4392b44472accd500725&page=2
-//the last https://api.rawg.io/api/games/51325?key=598bb83df21b4392b44472accd500725&
-//cyber https://api.rawg.io/api/games/41494?key=598bb83df21b4392b44472accd500725&
-//red dead https://api.rawg.io/api/games/28?key=598bb83df21b4392b44472accd500725&
-//control https://api.rawg.io/api/games/58812?key=598bb83df21b4392b44472accd500725&
-//https://media.rawg.io/media/games/253/2534a46f3da7fa7c315f1387515ca393.jpg
+*/

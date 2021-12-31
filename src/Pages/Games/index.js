@@ -5,6 +5,9 @@ import CarouselListGames from "../../components/CarouselListGames";
 import SportsEsports from "@material-ui/icons/SportsEsports";
 import Bounce from "react-reveal/Bounce";
 import SingleGames from "../../components/SingleGames";
+import { Height } from "@material-ui/icons";
+let timer;
+let totalResults;
 export default function Games() {
   const [gamesList, setGameList] = useState([]);
   const [gameGenres, setGameGenres] = useState([]);
@@ -13,10 +16,15 @@ export default function Games() {
   const [openModal, setOpenModal] = useState(false);
   const [yearInput, setYearInput] = useState("");
   const [singleGames, setSingleGames] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [searchSingleGames, setSearchSingleGames] = useState("");
+  const [result, setResult] = useState("");
 
   const getGameList = async () => {
+    setLoading(true);
     let json = await Api.getGamesList(1);
     setGameList(json);
+    setLoading(false);
   };
 
   function handleModal() {
@@ -31,35 +39,68 @@ export default function Games() {
   };
 
   async function handleGenresYear(e) {
+    setLoading(true);
     e.preventDefault();
     if (genre !== "") {
-      setGameList([]);
       let json = await Api.getGenreAndYear(genre, yearInput);
       setSingleGames(true);
       setGameList(json);
+      setLoading(false);
     } else {
+      setLoading(false);
       return null;
     }
   }
 
-  const loadSearchinFor = async () => {
-    setGameList([]);
+  const loadSearchingFor = async () => {
+    setLoading(true);
     let json = await Api.getSearchingFor(searching);
     setSingleGames(true);
     setGameList(json);
-    console.log(json);
+    setLoading(false);
   };
+
+  useEffect(() => {
+    if (searching !== "") {
+      loadSearchingFor();
+    }
+  }, [searching]);
+
+  //search single game
+  const handleSearchKeyword = (e) => {
+    setSearchSingleGames(e.target.value);
+  };
+
+  async function loadSearchingSingleGame(e) {
+    e.preventDefault();
+    if (searchSingleGames.trim() !== "") {
+      setResult("");
+      setLoading(true);
+      let json = await Api.getSearchSingleGame(searchSingleGames);
+      totalResults = json.count;
+      setSingleGames(true);
+      setGameList(json);
+      setLoading(false);
+      if (totalResults === 0 || !json) {
+        setResult("Nenhum game encontrado!");
+      }
+    } else if (!searchSingleGames) {
+      getGameList();
+    }
+  }
+
+  function handleReset() {
+    setSearchSingleGames("");
+    setSearching("");
+    setGenre("");
+    setYearInput("");
+    getGameList();
+  }
 
   useEffect(() => {
     getGameList();
     loadGenres();
   }, []);
-
-  useEffect(() => {
-    if (searching !== "") {
-      loadSearchinFor();
-    }
-  }, [searching]);
 
   return (
     <GamesArea open={openModal}>
@@ -67,24 +108,49 @@ export default function Games() {
         <SportsEsports />
       </span>
       <div className="search">
-        <form>
-          <input placeholder="Search" type="text" />
-          <select
-            value={searching}
-            onChange={(e) => setSearching(e.target.value)}
-          >
-            <option value="">Searching For</option>
-            <option value="2022">Upcoming games</option>
-            <option value="2021">popular games in 2021</option>
-            <option value="2020">popular games in 2020</option>
-          </select>
+        <form onSubmit={loadSearchingSingleGame}>
+          <input
+            value={searchSingleGames}
+            onChange={(e) => handleSearchKeyword(e)}
+            placeholder="Search"
+            type="text"
+          />
+          <button type="submit">Search</button>
         </form>
+        <select
+          value={searching}
+          onChange={(e) => setSearching(e.target.value)}
+        >
+          <option value="">Searching For</option>
+          <option value="2022">Upcoming games</option>
+          <option value="2021">popular games in 2021</option>
+          <option value="2020">popular games in 2020</option>
+        </select>
+
+        <div className="reset">
+          <button onClick={handleReset}>Reset</button>
+        </div>
       </div>
       <div className="GamesList">
-        {singleGames ? (
-          <SingleGames data={gamesList} />
+        {result !== "" && (
+          <div style={{ height: "200px" }}>
+            <h1 style={{ textAlign: "center" }}>{result}</h1>
+          </div>
+        )}
+        {loading ? (
+          <div style={{ height: "250px" }}>
+            <h1>Carregando</h1>
+          </div>
         ) : (
-          gamesList.map((item, k) => <CarouselListGames data={item} key={k} />)
+          <>
+            {singleGames ? (
+              <SingleGames data={gamesList} />
+            ) : (
+              gamesList.map((item, k) => (
+                <CarouselListGames data={item} key={k} />
+              ))
+            )}
+          </>
         )}
       </div>
       <Bounce left when={openModal}>
