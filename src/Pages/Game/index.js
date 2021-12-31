@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Carousel from "../../components/Carousel";
 export default function Game() {
+  const [loading, setLoading] = useState(false);
   const [game, setGame] = useState([]);
   const [images, setImages] = useState([]);
   const [same, setSame] = useState([]);
@@ -14,8 +15,10 @@ export default function Game() {
   let lastIndex = null;
   const [achievements, setAchievements] = useState([]);
   const loadSingleGame = async () => {
+    setLoading(true);
     let json = await Api.getSingleGame(id);
     setGame(json);
+    setLoading(false);
     lastIndex = json.platforms.length - 1;
   };
 
@@ -74,99 +77,107 @@ export default function Game() {
   }, []);
 
   return (
-    <GameArea>
-      <div
-        className="cover"
-        style={{
-          backgroundImage: `linear-gradient(to top, #1c1c1c 1%, transparent 50%), url(${game.background_image})`,
-        }}
-      >
-        <div className="initialInfo">
-          <div className="genres">
-            {g.length > 0 && g.map((item, k) => <p key={k}>{item}</p>)}
-          </div>
-          <h1>{game.name}</h1>
+    <>
+      {loading ? (
+        <div className="loading">
+          <img src="/assets/loading.gif" />
         </div>
-        <div className="vote">{game.metacritic}</div>
-      </div>
-      <div className="description">
-        <div className="photoSide">
-          <div className="photo">
-            <img src={game.background_image} />
-          </div>
-        </div>
-        <div className="descSide">
-          <h2 style={{ marginBottom: "15px" }}>About the game</h2>
-          <div>
-            <h3>Platforms</h3>
-
-            {game.platforms &&
-              game.platforms.map((item, k) => (
-                <div style={{ display: "inline" }} key={k}>
-                  {(k ? ", " : "") +
-                    item.platform.name +
-                    (k === lastIndex ? ". " : "")}
-                </div>
-              ))}
-          </div>
-          <div>
-            <h3>Developer</h3>
-            <p>{game.developers && game.developers[0].name}</p>
-          </div>
-          <div>
-            <h3>Metacritic</h3>
-            <p>{game.metacritic}/100</p>
-          </div>
-          <div>
-            <h3>Released</h3>
-            <p>{game.released}</p>
-          </div>
-        </div>
-        <div className="achievements">
-          {achievements.results && achievements.results.length > 0 ? (
-            <h2>Achievements</h2>
-          ) : (
-            <>
-              <h2>Achievements</h2>
-              <p>Not updated</p>
-            </>
-          )}
-          <Slider {...settings}>
-            {achievements.results &&
-              achievements.results.map((item, k) => (
-                <div className="items" key={k}>
-                  <img src={item.image} />
-                  <h3>{item.name}</h3>
-                  <p>{item.description}</p>
-                </div>
-              ))}
-          </Slider>
-        </div>
-      </div>
-      <div className="desc">
-        <p>{game.description_raw}</p>
-      </div>
-      <div className="gridParent">
-        {images &&
-          images.map((item, k) => (
-            <div className={`div${k + 1}`} key={k}>
-              <img src={item.image} />
+      ) : (
+        <GameArea>
+          <div
+            className="cover"
+            style={{
+              backgroundImage: `linear-gradient(to top, #1c1c1c 1%, transparent 50%), url(${game.background_image})`,
+            }}
+          >
+            <div className="initialInfo">
+              <div className="genres">
+                {g.length > 0 && g.map((item, k) => <p key={k}>{item}</p>)}
+              </div>
+              <h1>{game.name}</h1>
             </div>
-          ))}
-      </div>
-      <div className="sameGames">
-        {same && same.length > 0 ? (
-          <>
-            <h2>Same series</h2>
-            {same && <Carousel data={same} />}
-          </>
-        ) : (
-          <>
-            <h2>Same series</h2>{" "}
-            <p style={{ textAlign: "center" }}>Not updated</p>
-          </>
-        )}
-      </div>
-    </GameArea>
+            <div className="vote">{game.metacritic}</div>
+          </div>
+          <div className="description">
+            <div className="photoSide">
+              <div className="photo">
+                <img src={game.background_image} />
+              </div>
+            </div>
+            <div className="descSide">
+              <h2 style={{ marginBottom: "15px" }}>About the game</h2>
+              <div>
+                <h3>Platforms</h3>
+
+                {game.platforms &&
+                  game.platforms.map((item, k) => (
+                    <div style={{ display: "inline" }} key={k}>
+                      {(k ? ", " : "") +
+                        item.platform.name +
+                        (k === lastIndex ? ". " : "")}
+                    </div>
+                  ))}
+              </div>
+              <div>
+                <h3>Developer</h3>
+                <p>{game.developers && game.developers[0].name}</p>
+              </div>
+              <div>
+                <h3>Metacritic</h3>
+                <p>{game.metacritic}/100</p>
+              </div>
+              <div>
+                <h3>Released</h3>
+                <p>{game.released}</p>
+              </div>
+            </div>
+            <div className="achievements">
+              {achievements.results && achievements.results.length > 0 ? (
+                <h2>Achievements</h2>
+              ) : (
+                <>
+                  <h2>Achievements</h2>
+                  <p>Not updated</p>
+                </>
+              )}
+              <Slider {...settings}>
+                {achievements.results &&
+                  achievements.results.map((item, k) => (
+                    <div className="items" key={k}>
+                      <img src={item.image} />
+                      <h3>{item.name}</h3>
+                      <p>{item.description}</p>
+                    </div>
+                  ))}
+              </Slider>
+            </div>
+          </div>
+          <div className="desc">
+            <p>{game.description_raw}</p>
+          </div>
+          <div className="gridParent">
+            {images &&
+              images.map((item, k) => (
+                <div className={`div${k + 1}`} key={k}>
+                  <img src={item.image} />
+                </div>
+              ))}
+          </div>
+          <div className="sameGames">
+            {same && same.length > 0 ? (
+              <>
+                <h2>Same series</h2>
+                {same && <Carousel data={same} />}
+              </>
+            ) : (
+              <>
+                <h2>Same series</h2>{" "}
+                <p style={{ textAlign: "center" }}>Not updated</p>
+              </>
+            )}
+          </div>
+        </GameArea>
+      )}
+    </>
   );
 }

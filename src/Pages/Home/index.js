@@ -9,8 +9,10 @@ import Newslatters from "../../components/Newslatters/index.";
 export default function Home() {
   const [featured, setFeatured] = useState({});
   const [games, setGames] = useState([]);
+  const [loading, setLoading] = useState(false);
   const loadFeatured = async () => {
     try {
+      setLoading(true);
       let json = await Api.getFeatured("58812");
       let jsonInfo = {
         id: json.id,
@@ -22,9 +24,10 @@ export default function Home() {
         released: json.released,
         developers: json.developers,
       };
-
       setFeatured(jsonInfo);
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
@@ -47,7 +50,7 @@ export default function Home() {
   }, []);
   return (
     <div>
-      <Featured data={featured} />
+      <Featured loading={loading} data={featured} />
       <HomeArea>
         <h1>Popular games in 2020/2021</h1>
         <CarouselIntro />

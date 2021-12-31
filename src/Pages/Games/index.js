@@ -5,9 +5,10 @@ import CarouselListGames from "../../components/CarouselListGames";
 import SportsEsports from "@material-ui/icons/SportsEsports";
 import Bounce from "react-reveal/Bounce";
 import SingleGames from "../../components/SingleGames";
-import { Height } from "@material-ui/icons";
-let timer;
 let totalResults;
+let next;
+let type;
+
 export default function Games() {
   const [gamesList, setGameList] = useState([]);
   const [gameGenres, setGameGenres] = useState([]);
@@ -18,6 +19,7 @@ export default function Games() {
   const [singleGames, setSingleGames] = useState(false);
   const [loading, setLoading] = useState(false);
   const [searchSingleGames, setSearchSingleGames] = useState("");
+  const [page, setPage] = useState(1);
   const [result, setResult] = useState("");
 
   const getGameList = async () => {
@@ -25,6 +27,7 @@ export default function Games() {
     let json = await Api.getGamesList(1);
     setGameList(json);
     setLoading(false);
+    setSingleGames(false);
   };
 
   function handleModal() {
@@ -38,13 +41,22 @@ export default function Games() {
     setGameGenres(json);
   };
 
-  async function handleGenresYear(e) {
-    setLoading(true);
-    e.preventDefault();
+  function helpReq(j) {
+    setResult("");
+    next = j.next;
+    setSingleGames(true);
+    setGameList(j);
+  }
+
+  async function handleGenresYear() {
     if (genre !== "") {
-      let json = await Api.getGenreAndYear(genre, yearInput);
-      setSingleGames(true);
-      setGameList(json);
+      setLoading(true);
+      setPage(1);
+      setOpenModal(false);
+      let json = await Api.getSearch("genreYear", yearInput, page, genre);
+      helpReq(json);
+      type = "genreYear";
+      totalResults = json.count;
       setLoading(false);
     } else {
       setLoading(false);
@@ -54,9 +66,12 @@ export default function Games() {
 
   const loadSearchingFor = async () => {
     setLoading(true);
-    let json = await Api.getSearchingFor(searching);
-    setSingleGames(true);
-    setGameList(json);
+    setPage(1);
+    let json = await Api.getSearch("searchingFor", searching, page);
+    helpReq(json);
+    console.log(json);
+    type = "searchingFor";
+    totalResults = json.count;
     setLoading(false);
   };
 
@@ -71,16 +86,22 @@ export default function Games() {
     setSearchSingleGames(e.target.value);
   };
 
-  async function loadSearchingSingleGame(e) {
-    e.preventDefault();
+  async function loadSearchingSingleGame() {
     if (searchSingleGames.trim() !== "") {
-      setResult("");
       setLoading(true);
-      let json = await Api.getSearchSingleGame(searchSingleGames);
+      setPage(1);
+      let json = await Api.getSearch(
+        "searchSingle",
+        "",
+        page,
+        "",
+        searchSingleGames
+      );
+      helpReq(json);
+      type = "searchSingle";
       totalResults = json.count;
-      setSingleGames(true);
-      setGameList(json);
       setLoading(false);
+
       if (totalResults === 0 || !json) {
         setResult("Nenhum game encontrado!");
       }
@@ -88,14 +109,39 @@ export default function Games() {
       getGameList();
     }
   }
+  //page
+  const handlePage = () => {
+    setPage(page + 1);
+  };
 
-  function handleReset() {
-    setSearchSingleGames("");
-    setSearching("");
-    setGenre("");
-    setYearInput("");
-    getGameList();
+  async function handleMorePages() {
+    if (type === "searchingFor") {
+      setLoading(true);
+      const json = await Api.getSearch("searchingFor", searching, page);
+      helpReq(json);
+      setLoading(false);
+    } else if (type === "searchSingle") {
+      setLoading(true);
+      const json = await Api.getSearch(
+        "searchSingle",
+        "",
+        page,
+        "",
+        searchSingleGames
+      );
+      helpReq(json);
+      setLoading(false);
+    } else if (type === "genreYear") {
+      setLoading(true);
+      const json = await Api.getSearch("genreYear", yearInput, page, genre);
+      helpReq(json);
+      setLoading(false);
+    }
   }
+
+  useEffect(() => {
+    handleMorePages();
+  }, [page]);
 
   useEffect(() => {
     getGameList();
@@ -108,15 +154,15 @@ export default function Games() {
         <SportsEsports />
       </span>
       <div className="search">
-        <form onSubmit={loadSearchingSingleGame}>
+        <div>
           <input
             value={searchSingleGames}
             onChange={(e) => handleSearchKeyword(e)}
             placeholder="Search"
             type="text"
           />
-          <button type="submit">Search</button>
-        </form>
+          <button onClick={loadSearchingSingleGame}>Search</button>
+        </div>
         <select
           value={searching}
           onChange={(e) => setSearching(e.target.value)}
@@ -126,10 +172,6 @@ export default function Games() {
           <option value="2021">popular games in 2021</option>
           <option value="2020">popular games in 2020</option>
         </select>
-
-        <div className="reset">
-          <button onClick={handleReset}>Reset</button>
-        </div>
       </div>
       <div className="GamesList">
         {result !== "" && (
@@ -138,13 +180,22 @@ export default function Games() {
           </div>
         )}
         {loading ? (
-          <div style={{ height: "250px" }}>
-            <h1>Carregando</h1>
+          <div className="loading">
+            <img src="/assets/loading.gif" />
           </div>
         ) : (
           <>
             {singleGames ? (
-              <SingleGames data={gamesList} />
+              <>
+                <SingleGames data={gamesList} />
+                {next === null ? (
+                  ""
+                ) : (
+                  <button type="submit" onClick={handlePage}>
+                    More
+                  </button>
+                )}
+              </>
             ) : (
               gamesList.map((item, k) => (
                 <CarouselListGames data={item} key={k} />
@@ -155,35 +206,37 @@ export default function Games() {
       </div>
       <Bounce left when={openModal}>
         <div className="modal">
-          <form onSubmit={handleGenresYear}>
-            <div className="genres">
-              <h1>Genres</h1>
-              <select value={genre} onChange={(e) => setGenre(e.target.value)}>
-                <option>Select Genres</option>
-                {gameGenres.results &&
-                  gameGenres.results.map((item, k) => (
-                    <option key={k} value={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
-              </select>
-            </div>
-            <div className="year">
-              <h1>Year </h1>
-              {yearInput !== "" && <h5>{yearInput}</h5>}
-              <input
-                value={yearInput}
-                type="range"
-                min={2000}
-                max={2022}
-                step="any"
-                className="slider"
-                onChange={(e) => handleYear(e.target.value)}
-              />
-            </div>
-            <br />
-            <button type="submit">Search</button>
-          </form>
+          <div className="genres">
+            <h1>Genres</h1>
+            <select
+              required
+              value={genre}
+              onChange={(e) => setGenre(e.target.value)}
+            >
+              <option>Select Genres</option>
+              {gameGenres.results &&
+                gameGenres.results.map((item, k) => (
+                  <option key={k} value={item.id}>
+                    {item.name}
+                  </option>
+                ))}
+            </select>
+          </div>
+          <div className="year">
+            <h1>Year </h1>
+            {yearInput !== "" && <h5>{yearInput}</h5>}
+            <input
+              value={yearInput}
+              type="range"
+              min={2000}
+              max={2022}
+              step="any"
+              className="slider"
+              onChange={(e) => handleYear(e.target.value)}
+            />
+          </div>
+          <br />
+          <button onClick={handleGenresYear}>Search</button>
         </div>
       </Bounce>
     </GamesArea>

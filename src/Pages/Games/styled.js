@@ -13,10 +13,7 @@ export const GamesArea = styled.section`
       margin-right: 20px;
     }
   }
-  .reset {
-    margin-top: 20px !important;
-    display: flex;
-  }
+
   .GamesList {
     max-width: 1200px;
     margin: 4rem auto;

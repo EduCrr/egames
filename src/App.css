@@ -74,3 +74,20 @@ select {
 ::placeholder {
   color: white;
 }
+
+.loading {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #231f20;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999999;
+}
+.loading img {
+  height: 200px;
+}
