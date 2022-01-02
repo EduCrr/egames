@@ -2,9 +2,10 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CarouselArea } from "./styled";
 export default function Carousel({ data }) {
+  let navigate = useNavigate();
   function SamplePrevArrow(props) {
     const { className, style, onClick } = props;
     return (
@@ -74,18 +75,27 @@ export default function Carousel({ data }) {
     ],
   };
 
+  function handleLink(id) {
+    navigate("/");
+    setTimeout(() => navigate(`/game/${id}`), 0);
+  }
+
   return (
     <CarouselArea>
       <Slider {...settings}>
         {data.map((item, k) => (
           <div className="area" key={k}>
             <div className="photo">
-              <Link to={`game/${item.id}`}>
-                <img src={item.background_image} />
-              </Link>
+              <img
+                src={item.background_image}
+                onClick={() => handleLink(item.id)}
+              />
             </div>
             <div className="desc">
-              <h1>
+              <h1
+                style={{ cursor: "pointer" }}
+                onClick={() => handleLink(item.id)}
+              >
                 {" "}
                 {item.name.length >= 30
                   ? item.name.substring(0, 30) + "..."
@@ -96,9 +106,6 @@ export default function Carousel({ data }) {
                   {item.released && item.released.substring(0, 4)}
                 </div>
                 <div className="score">{item.metacritic}/100</div>
-              </div>
-              <div style={{ marginTop: "10px" }}>
-                <button>More</button>
               </div>
             </div>
           </div>

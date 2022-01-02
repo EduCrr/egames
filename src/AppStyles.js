@@ -1,6 +1,14 @@
 import styled from "styled-components";
 
 export const AppStylesCarousel = styled.div`
+  .slick-prev:before {
+    font-size: 10px;
+    content: url("/assets/left.png");
+  }
+
+  .slick-next:before {
+    content: url("/assets/right.png");
+  }
   .photo {
     margin: 30px 0px;
     width: 20%;

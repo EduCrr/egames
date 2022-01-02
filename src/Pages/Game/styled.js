@@ -4,7 +4,7 @@ export const GameArea = styled.section`
   .cover {
     height: 100vh;
     width: 100%;
-    background-position: center;
+    background-position: top;
     background-size: cover;
     background-repeat: no-repeat;
     .initialInfo {
@@ -16,8 +16,10 @@ export const GameArea = styled.section`
       align-items: flex-start;
       flex-direction: column;
       h1 {
-        max-width: 600px;
+        text-shadow: 1px 1px 50px #1c1c1c;
         font-size: 40px;
+        max-width: 450px;
+        font-weight: bold;
       }
     }
     .vote {
@@ -26,11 +28,12 @@ export const GameArea = styled.section`
       -webkit-text-stroke-color: #fff;
       font-size: 120px;
       height: 0vh;
-      width: 1200px;
+      width: 100%;
       display: flex;
       margin: auto;
       justify-content: flex-end;
       align-items: flex-end;
+      padding-right: 70px;
     }
   }
   .description {
@@ -60,36 +63,49 @@ export const GameArea = styled.section`
       }
     }
     .achievements {
-      flex: 1;
-      .items {
-        margin-top: 20px;
-        height: 100%;
+      width: 450px;
+      .slick-slide {
+        height: 230px !important;
+        margin: auto !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-content: center !important;
+        align-items: center !important;
       }
-      img {
-        margin-bottom: 10px;
-        height: auto;
-        width: 50px;
+      .achievementsItems {
         border-radius: 5px 20px 20px 20px;
-      }
-      .slick-prev:before {
-        content: url("/assets/up.png");
-      }
+        margin: 20px auto;
+        background-color: #222;
+        .items {
+          padding: 20px;
+          text-align: center;
+          img {
+            margin: auto;
+            margin-bottom: 10px;
+            width: 100px;
+            border-radius: 5px 20px 20px 20px;
+          }
+          .slick-prev:before {
+            content: url("/assets/left.png");
+          }
 
-      .slick-next:before {
-        content: url("/assets/down.png");
-      }
-      .slick-prev {
-        margin: auto 0px;
-      }
-      .slick-next {
-        margin: auto 0px;
-        margin-left: 70px;
+          .slick-next:before {
+            content: url("/assets/right.png");
+          }
+          .slick-prev {
+            margin: auto 0px;
+          }
+          .slick-next {
+            margin: auto 0px;
+            margin-left: 70px;
+          }
+        }
       }
     }
   }
   .desc {
     max-width: 1200px;
-    margin: auto;
+    margin: 4rem auto;
   }
   .gridParent {
     margin: 4rem auto;
@@ -134,4 +150,50 @@ export const GameArea = styled.section`
       text-align: center;
     }
   }
+  .items {
+    p {
+      font-size: 14px;
+    }
+  }
 `;
+
+/*
+.achievements {
+      flex: 1;
+      .achievementsItems {
+        height: 270px;
+        display: flex !important;
+        align-items: center;
+        .items {
+          padding: 5px 0px;
+          height: auto;
+          display: flex !important;
+          align-items: center;
+          .text {
+            display: flex;
+            flex-direction: column;
+            padding: 0px 20px;
+          }
+        }
+        img {
+          height: auto;
+          width: 50px;
+          border-radius: 5px 20px 20px 20px;
+        }
+        .slick-prev:before {
+          content: url("/assets/up.png");
+        }
+
+        .slick-next:before {
+          content: url("/assets/down.png");
+        }
+        .slick-prev {
+          margin: auto 0px;
+        }
+        .slick-next {
+          margin: auto 0px;
+          margin-left: 70px;
+        }
+      }
+    }
+*/

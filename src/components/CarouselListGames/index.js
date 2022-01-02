@@ -6,6 +6,35 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 export default function CarouselListGames({ data }) {
   let navigate = useNavigate();
+
+  function SamplePrevArrow({ className, style, onClick }) {
+    return (
+      <div
+        className={className}
+        style={{
+          background: "transparent",
+          top: "-5%",
+          left: "90%",
+        }}
+        onClick={onClick}
+      />
+    );
+  }
+
+  function SampleNextArrow({ className, style, onClick }) {
+    return (
+      <div
+        className={className}
+        style={{
+          background: "transparent",
+          top: "-5%",
+          right: "3%",
+        }}
+        onClick={onClick}
+      />
+    );
+  }
+
   const settings = {
     dots: false,
     infinite: false,
@@ -13,6 +42,8 @@ export default function CarouselListGames({ data }) {
     slidesToShow: 4,
     slidesToScroll: 4,
     initialSlide: 0,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
 
     responsive: [
       {

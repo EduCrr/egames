@@ -4,7 +4,7 @@ export const FeaturedArea = styled.section`
   height: 100vh;
   width: 100%;
 
-  background-position: center;
+  background-position: top;
   background-size: cover;
   background-repeat: no-repeat;
 
@@ -39,7 +39,7 @@ export const FeaturedArea = styled.section`
       max-width: 450px;
       line-height: 30px;
     }
-    button {
+    a {
       margin: 20px 0px !important;
     }
   }

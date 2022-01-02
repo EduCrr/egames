@@ -14,6 +14,7 @@ export default function Game() {
   const { id } = useParams();
   let lastIndex = null;
   const [achievements, setAchievements] = useState([]);
+
   const loadSingleGame = async () => {
     setLoading(true);
     let json = await Api.getSingleGame(id);
@@ -41,32 +42,12 @@ export default function Game() {
     g.push(game.genres[i].name);
   }
 
-  function SampleArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{
-          background: "transparent",
-          right: "0px",
-          left: "0px",
-          top: "120%",
-        }}
-        onClick={onClick}
-      />
-    );
-  }
-
   const settings = {
-    dots: false,
-    infinite: false,
-    slidesToShow: 2,
-    slidesToScroll: 1.5,
-    nextArrow: <SampleArrow />,
-    prevArrow: <SampleArrow />,
-    vertical: true,
-    verticalSwiping: true,
-    swipeToSlide: true,
+    infinite: true,
+    arrows: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
   };
 
   useEffect(() => {
@@ -74,6 +55,7 @@ export default function Game() {
     loadScreenshots();
     loadAchievements();
     loadSameGame();
+    window.scrollTo(0, 0);
   }, []);
 
   return (
@@ -133,23 +115,27 @@ export default function Game() {
             </div>
             <div className="achievements">
               {achievements.results && achievements.results.length > 0 ? (
-                <h2>Achievements</h2>
+                <>
+                  <h2>Achievements</h2>
+                  <div className="achievementsItems">
+                    <Slider {...settings}>
+                      {achievements.results &&
+                        achievements.results.map((item, k) => (
+                          <div className="items" key={k}>
+                            <img src={item.image} />
+                            <h3>{item.name}</h3>
+                            <p>{item.description}</p>
+                          </div>
+                        ))}
+                    </Slider>
+                  </div>
+                </>
               ) : (
                 <>
                   <h2>Achievements</h2>
                   <p>Not updated</p>
                 </>
               )}
-              <Slider {...settings}>
-                {achievements.results &&
-                  achievements.results.map((item, k) => (
-                    <div className="items" key={k}>
-                      <img src={item.image} />
-                      <h3>{item.name}</h3>
-                      <p>{item.description}</p>
-                    </div>
-                  ))}
-              </Slider>
             </div>
           </div>
           <div className="desc">

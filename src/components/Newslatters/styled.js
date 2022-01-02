@@ -23,5 +23,8 @@ export const NewsArea = styled.section`
     .subArea {
       max-width: 470px;
     }
+    form {
+      margin: 20px 0px;
+    }
   }
 `;

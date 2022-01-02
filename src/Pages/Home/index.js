@@ -10,6 +10,8 @@ export default function Home() {
   const [featured, setFeatured] = useState({});
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [gameGenres, setGameGenres] = useState([]);
+  const [genre, setGenre] = useState("4");
   const loadFeatured = async () => {
     try {
       setLoading(true);
@@ -38,16 +40,27 @@ export default function Home() {
 
   const loadGames = async () => {
     try {
-      let json = await Api.getHomeList();
+      let json = await Api.getHomeList(genre);
       setGames(json.results);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const loadGenres = async () => {
+    let json = await Api.getGenres();
+    console.log(json);
+    setGameGenres(json);
+  };
+
+  useEffect(() => {
+    loadGenres();
+  }, []);
+
   useEffect(() => {
     loadGames();
-  }, []);
+  }, [genre]);
+
   return (
     <div>
       <Featured loading={loading} data={featured} />
@@ -55,8 +68,21 @@ export default function Home() {
         <h1>Popular games in 2020/2021</h1>
         <CarouselIntro />
         <div className="search">
-          <div className="leftSide">Action</div>
-          <div className="rightSide">Action</div>
+          <div className="leftSide">Categories</div>
+          <div className="rightSide">
+            <select
+              required
+              value={genre}
+              onChange={(e) => setGenre(e.target.value)}
+            >
+              {gameGenres.results &&
+                gameGenres.results.map((item, k) => (
+                  <option key={k} value={item.id}>
+                    {item.name}
+                  </option>
+                ))}
+            </select>
+          </div>
         </div>
         <Carousel data={games} />
       </HomeArea>

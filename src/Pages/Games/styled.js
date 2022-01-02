@@ -7,10 +7,13 @@ export const GamesArea = styled.section`
     display: flex;
     justify-content: space-between;
 
-    input,
-    select {
+    input {
       margin-top: 20px;
       margin-right: 20px;
+    }
+    select {
+      margin-top: 20px;
+      margin-right: 0px;
     }
   }
 
@@ -91,6 +94,11 @@ export const GamesArea = styled.section`
         background: rgb(85, 197, 122);
         cursor: pointer;
       }
+    }
+  }
+  .btns {
+    button {
+      margin-right: 20px;
     }
   }
 `;

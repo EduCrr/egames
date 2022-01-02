@@ -24,6 +24,7 @@ export default function Games() {
 
   const getGameList = async () => {
     setLoading(true);
+    setPage(1);
     let json = await Api.getGamesList(1);
     setGameList(json);
     setLoading(false);
@@ -69,7 +70,6 @@ export default function Games() {
     setPage(1);
     let json = await Api.getSearch("searchingFor", searching, page);
     helpReq(json);
-    console.log(json);
     type = "searchingFor";
     totalResults = json.count;
     setLoading(false);
@@ -98,6 +98,7 @@ export default function Games() {
         searchSingleGames
       );
       helpReq(json);
+      console.log(json);
       type = "searchSingle";
       totalResults = json.count;
       setLoading(false);
@@ -112,6 +113,11 @@ export default function Games() {
   //page
   const handlePage = () => {
     setPage(page + 1);
+    window.scrollTo(0, 0);
+  };
+  const handlePagePrev = () => {
+    setPage(page - 1);
+    window.scrollTo(0, 0);
   };
 
   async function handleMorePages() {
@@ -188,13 +194,21 @@ export default function Games() {
             {singleGames ? (
               <>
                 <SingleGames data={gamesList} />
-                {next === null ? (
-                  ""
-                ) : (
-                  <button type="submit" onClick={handlePage}>
-                    More
-                  </button>
-                )}
+                <div className="btns">
+                  {next === null && page === 1 && ""}
+                  {next === null && page > 1 && (
+                    <button onClick={handlePagePrev}>Prev</button>
+                  )}
+                  {next !== null && page === 1 && (
+                    <button onClick={handlePage}>Next</button>
+                  )}
+                  {next !== null && page > 1 && (
+                    <>
+                      <button onClick={handlePagePrev}>Prev</button>
+                      <button onClick={handlePage}>Next</button>
+                    </>
+                  )}
+                </div>
               </>
             ) : (
               gamesList.map((item, k) => (
@@ -242,6 +256,3 @@ export default function Games() {
     </GamesArea>
   );
 }
-/*
-
-*/

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Api from "../../Api";
 import { AppStylesCarousel } from "../../AppStyles";
 import { CarouselArea } from "./styled";
@@ -24,7 +25,9 @@ export default function CarouselIntro() {
         {popular &&
           popular.map((item, k) => (
             <div className="photo" key={k}>
-              <img src={item.background_image} />
+              <Link to={`game/${item.id}`}>
+                <img src={item.background_image} />
+              </Link>
               <div className="text">
                 <div className="title">
                   {item.name.length > 20
@@ -41,7 +44,9 @@ export default function CarouselIntro() {
             </div>
           ))}
         <div style={{ margin: "auto" }}>
-          <button>See More</button>
+          <Link className="equal" to="/games">
+            See More
+          </Link>
         </div>
       </CarouselArea>
     </AppStylesCarousel>

@@ -25,9 +25,9 @@ export default {
     );
     return json;
   },
-  getHomeList: async (id = 4) => {
+  getHomeList: async (id) => {
     let { data: json } = await api.get(
-      `/games?genres=${id}&key=${API_KEY}&page_size=26`
+      `/games?genres=${id}&key=${API_KEY}&page_size=12`
     );
     return json;
   },
@@ -65,7 +65,7 @@ export default {
         slug: "action",
         title: "Ação",
         items: await basicFetch(
-          `/games?genres=4&key=${API_KEY}&page_size=4&page=${page}`
+          `/games?genres=4&key=${API_KEY}&page_size=6&page=${page}`
         ),
       },
     ];
@@ -78,7 +78,7 @@ export default {
       return json;
     } else if (type === "searchSingle") {
       let { data: jsonSingle } = await api.get(
-        `/games?search=${slug}&key=${API_KEY}&page_size=1&page=${page}`
+        `/games?search=${slug}&key=${API_KEY}&page_size=30&page=${page}`
       );
       return jsonSingle;
     } else if (type === "genreYear") {

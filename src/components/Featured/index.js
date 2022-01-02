@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { FeaturedArea } from "./styled";
 export default function Featured({ data, loading }) {
   let g = [];
@@ -35,7 +36,9 @@ export default function Featured({ data, loading }) {
             <div className="year">
               {data.released && data.released.substring(0, 4)}
             </div>
-            <button>More</button>
+            <Link className="equal" to={`/game/${data.id}`}>
+              More
+            </Link>
           </div>
         </FeaturedArea>
       )}

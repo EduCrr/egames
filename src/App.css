@@ -18,12 +18,35 @@ ul a {
   padding: 0px;
   margin: 0px;
 }
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #55c56b #1c1c1c;
+  border-radius: 9999px;
+}
+
+html ::-webkit-scrollbar {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  width: 0.6vw;
+}
+
+html ::-webkit-scrollbar-thumb {
+  background-color: #55c56b;
+  background-clip: padding-box;
+  border-radius: 9999px;
+}
+
+html ::-webkit-scrollbar-track {
+  background-color: #1c1c1c;
+}
 
 p {
   line-height: 30px !important;
 }
 
-button {
+button,
+.equal {
   background: rgb(85, 197, 122);
   background: linear-gradient(
     90deg,
@@ -34,6 +57,7 @@ button {
   color: white;
   padding: 20px 80px;
   border: none;
+  text-decoration: none;
   outline: none;
   font-size: 14px;
   font-weight: bold;
@@ -69,10 +93,10 @@ select {
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
-  font-family: "Kanit", sans-serif;
+  font-family: "Kanit", sans-serif !important;
 }
 ::placeholder {
-  color: white;
+  color: white !important;
 }
 
 .loading {
@@ -90,4 +114,8 @@ select {
 }
 .loading img {
   height: 200px;
+}
+select {
+  font-size: 15px;
+  font-weight: bold;
 }
