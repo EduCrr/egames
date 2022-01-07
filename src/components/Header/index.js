@@ -14,9 +14,6 @@ export default function Header() {
             <li>
               <Link to="/games">Games</Link>
             </li>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
           </ul>
         </div>
       </nav>

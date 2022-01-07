@@ -99,23 +99,50 @@ select {
   color: white !important;
 }
 
-.loading {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background-color: #231f20;
-  z-index: 99;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999999;
-}
-.loading img {
-  height: 200px;
-}
 select {
   font-size: 15px;
   font-weight: bold;
+}
+
+.loadingSpan {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  width: 2em;
+  margin-top: 20px;
+}
+
+.loadingSpan span {
+  margin: auto;
+  width: 0.3em;
+  height: 1em;
+  background-color: #55c56b;
+}
+
+span:nth-of-type(1) {
+  animation: grow 1s -0.45s ease-in-out infinite;
+}
+
+span:nth-of-type(2) {
+  animation: grow 1s -0.3s ease-in-out infinite;
+}
+
+span:nth-of-type(3) {
+  animation: grow 1s -0.15s ease-in-out infinite;
+}
+
+span:nth-of-type(4) {
+  animation: grow 1s ease-in-out infinite;
+}
+
+@keyframes grow {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  50% {
+    transform: scaleY(2);
+  }
 }

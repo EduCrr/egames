@@ -43,4 +43,13 @@ export const FeaturedArea = styled.section`
       margin: 20px 0px !important;
     }
   }
+  @media screen and (max-width: 1024px) {
+    .info {
+      align-items: center;
+      .desc {
+        text-align: center;
+        padding: 0px 20px;
+      }
+    }
+  }
 `;

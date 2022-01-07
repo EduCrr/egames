@@ -5,6 +5,7 @@ import CarouselListGames from "../../components/CarouselListGames";
 import SportsEsports from "@material-ui/icons/SportsEsports";
 import Bounce from "react-reveal/Bounce";
 import SingleGames from "../../components/SingleGames";
+import Loader from "../../components/Loader";
 let totalResults;
 let next;
 let type;
@@ -156,9 +157,9 @@ export default function Games() {
 
   return (
     <GamesArea open={openModal}>
-      <span onClick={handleModal}>
+      <div className="controller" onClick={handleModal}>
         <SportsEsports />
-      </span>
+      </div>
       <div className="search">
         <div>
           <input
@@ -186,9 +187,7 @@ export default function Games() {
           </div>
         )}
         {loading ? (
-          <div className="loading">
-            <img src="/assets/loading.gif" />
-          </div>
+          <Loader />
         ) : (
           <>
             {singleGames ? (

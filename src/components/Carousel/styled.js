@@ -41,4 +41,20 @@ export const CarouselArea = styled.section`
   .slick-next:before {
     content: url("/assets/right.png");
   }
+  @media screen and (max-width: 1024px) {
+    .slick-arrow {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    h1 {
+      text-align: center;
+    }
+    .search {
+      flex-direction: column;
+    }
+    .rightSide {
+      margin-top: 20px;
+    }
+  }
 `;

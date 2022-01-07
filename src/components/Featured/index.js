@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Loader from "../Loader";
 import { FeaturedArea } from "./styled";
 export default function Featured({ data, loading }) {
   let g = [];
@@ -9,9 +10,7 @@ export default function Featured({ data, loading }) {
   return (
     <>
       {loading ? (
-        <div className="loading">
-          <img src="/assets/loading.gif" />
-        </div>
+        <Loader />
       ) : (
         <FeaturedArea
           style={{

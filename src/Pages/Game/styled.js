@@ -9,7 +9,7 @@ export const GameArea = styled.section`
     background-repeat: no-repeat;
     .initialInfo {
       height: inherit;
-      width: 1200px;
+      max-width: 1200px;
       display: flex;
       margin: auto;
       justify-content: center;
@@ -38,7 +38,7 @@ export const GameArea = styled.section`
   }
   .description {
     display: flex;
-    width: 1200px;
+    max-width: 1200px;
     margin: 4rem auto;
     align-items: stretch;
     justify-content: space-between;
@@ -47,7 +47,7 @@ export const GameArea = styled.section`
       .photo {
         img {
           border-radius: 5px 20px 20px 20px;
-          height: 350px;
+          height: 230px;
           width: 300px;
           margin-bottom: 20px;
           object-fit: cover;
@@ -109,7 +109,7 @@ export const GameArea = styled.section`
   }
   .gridParent {
     margin: 4rem auto;
-    width: 1200px;
+    max-width: 1200px;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(10, 1fr);
@@ -155,45 +155,31 @@ export const GameArea = styled.section`
       font-size: 14px;
     }
   }
-`;
-
-/*
-.achievements {
-      flex: 1;
-      .achievementsItems {
-        height: 270px;
-        display: flex !important;
-        align-items: center;
-        .items {
-          padding: 5px 0px;
-          height: auto;
-          display: flex !important;
-          align-items: center;
-          .text {
-            display: flex;
-            flex-direction: column;
-            padding: 0px 20px;
-          }
-        }
-        img {
-          height: auto;
-          width: 50px;
-          border-radius: 5px 20px 20px 20px;
-        }
-        .slick-prev:before {
-          content: url("/assets/up.png");
-        }
-
-        .slick-next:before {
-          content: url("/assets/down.png");
-        }
-        .slick-prev {
-          margin: auto 0px;
-        }
-        .slick-next {
-          margin: auto 0px;
-          margin-left: 70px;
-        }
-      }
+  @media screen and (max-width: 1024px) {
+    .initialInfo {
+      padding: 0px 20px;
     }
-*/
+    .desc {
+      padding: 0px 20px;
+    }
+    .description {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .achievements {
+      margin-top: 20px;
+    }
+    .gridParent {
+      padding: 0px 20px;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  @media screen and (max-width: 550px) {
+    h1 {
+      font-size: 35px;
+    }
+  }
+`;

@@ -5,21 +5,26 @@ export default function Footer() {
   return (
     <FooterArea>
       <div className="content">
-        <div className="offer">
+        <nav>
           <ul>
             <li>
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/">Games</Link>
-            </li>
-            <li>
-              <Link to="/">Home</Link>
+              <Link to="/games">Games</Link>
             </li>
           </ul>
-        </div>
+        </nav>
         <div className="footerInfo">
           <strong>Feito por:</strong> Eduardo Carraro
+          {" | "}
+          <a
+            style={{ color: "white", textDecoration: "none" }}
+            href="https://rawg.io/"
+            target="_blank"
+          >
+            Rawg
+          </a>
         </div>
       </div>
     </FooterArea>

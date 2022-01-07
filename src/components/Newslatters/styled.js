@@ -11,7 +11,7 @@ export const NewsArea = styled.section`
   clip-path: polygon(0 40%, 100% 0, 100% 100%, 0 100%);
   .area {
     height: inherit;
-    width: 1200px;
+    max-width: 1200px;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
@@ -25,6 +25,20 @@ export const NewsArea = styled.section`
     }
     form {
       margin: 20px 0px;
+    }
+  }
+  @media screen and (max-width: 1024px) {
+    .area {
+      padding: 0px 20px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .area {
+      text-align: center;
+      align-items: center;
+      form {
+        text-align: center;
+      }
     }
   }
 `;

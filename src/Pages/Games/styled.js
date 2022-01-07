@@ -21,7 +21,7 @@ export const GamesArea = styled.section`
     max-width: 1200px;
     margin: 4rem auto;
   }
-  span {
+  div.controller {
     position: fixed;
     left: 0px;
     top: 50%;
@@ -33,6 +33,7 @@ export const GamesArea = styled.section`
     z-index: ${(props) => (props.open ? "98" : "-1")};
     transition: all ease 0.6s;
     display: flex;
+    overflow-y: scroll;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -42,7 +43,7 @@ export const GamesArea = styled.section`
     left: 0;
     bottom: 0;
     position: fixed;
-    height: 100vh;
+    height: 100%;
     width: 35%;
     background-color: #1f1f1f;
     form {
@@ -99,6 +100,30 @@ export const GamesArea = styled.section`
   .btns {
     button {
       margin-right: 20px;
+    }
+  }
+  @media screen and (max-width: 1024px) {
+    .search {
+      flex-direction: column;
+      align-items: flex-start;
+      select {
+        margin-top: 35px;
+      }
+    }
+    .btns {
+      text-align: center;
+    }
+  }
+  @media screen and (max-width: 710px) {
+    .modal {
+      width: 100%;
+    }
+  }
+  @media screen and (max-width: 450px) {
+    .btns {
+      button {
+        margin-bottom: 20px;
+      }
     }
   }
 `;

@@ -41,4 +41,26 @@ export const FutureArea = styled.section`
       }
     }
   }
+  @media screen and (max-width: 1024px) {
+    .info {
+      justify-content: center !important;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    height: 130vh;
+    .info {
+      flex-direction: column;
+      text-align: center;
+      margin: auto;
+      .genres {
+        justify-content: center;
+      }
+    }
+  }
+  @media screen and (max-width: 450px) {
+    height: 160vh;
+    h2 {
+      font-size: 20px;
+    }
+  }
 `;

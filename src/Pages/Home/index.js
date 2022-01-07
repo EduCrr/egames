@@ -6,6 +6,7 @@ import CarouselIntro from "../../components/CarouselIntro";
 import Carousel from "../../components/Carousel";
 import Future from "../../components/Future";
 import Newslatters from "../../components/Newslatters/index.";
+import Intro from "../../components/Intro";
 export default function Home() {
   const [featured, setFeatured] = useState({});
   const [games, setGames] = useState([]);
@@ -40,9 +41,12 @@ export default function Home() {
 
   const loadGames = async () => {
     try {
+      setLoading(true);
       let json = await Api.getHomeList(genre);
       setGames(json.results);
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
@@ -65,8 +69,10 @@ export default function Home() {
     <div>
       <Featured loading={loading} data={featured} />
       <HomeArea>
+        <Intro />
         <h1>Popular games in 2020/2021</h1>
         <CarouselIntro />
+
         <div className="search">
           <div className="leftSide">Categories</div>
           <div className="rightSide">
@@ -84,7 +90,8 @@ export default function Home() {
             </select>
           </div>
         </div>
-        <Carousel data={games} />
+
+        <Carousel data={games} loading={loading} />
       </HomeArea>
       <Future />
       <Newslatters />

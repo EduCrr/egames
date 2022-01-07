@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useNavigate } from "react-router-dom";
 import { CarouselArea } from "./styled";
-export default function Carousel({ data }) {
+export default function Carousel({ data, loading }) {
   let navigate = useNavigate();
   function SamplePrevArrow(props) {
     const { className, style, onClick } = props;
@@ -58,7 +58,7 @@ export default function Carousel({ data }) {
         },
       },
       {
-        breakpoint: 760,
+        breakpoint: 768,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
@@ -82,36 +82,47 @@ export default function Carousel({ data }) {
 
   return (
     <CarouselArea>
-      <Slider {...settings}>
-        {data.map((item, k) => (
-          <div className="area" key={k}>
-            <div className="photo">
-              <img
-                src={item.background_image}
-                onClick={() => handleLink(item.id)}
-              />
-            </div>
-            <div className="desc">
-              <h1
-                style={{ cursor: "pointer" }}
-                onClick={() => handleLink(item.id)}
-              >
-                {" "}
-                {item.name.length >= 30
-                  ? item.name.substring(0, 30) + "..."
-                  : item.name}
-              </h1>
-              <div className="info">
-                <div className="year">
-                  {item.released && item.released.substring(0, 4)}
+      {loading ? (
+        <div className="loadingSpan">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      ) : (
+        <>
+          <Slider {...settings}>
+            {data.map((item, k) => (
+              <div className="area" key={k}>
+                <div className="photo">
+                  <img
+                    src={item.background_image}
+                    onClick={() => handleLink(item.id)}
+                  />
                 </div>
-                <div className="score">{item.metacritic}/100</div>
+                <div className="desc">
+                  <h1
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleLink(item.id)}
+                  >
+                    {" "}
+                    {item.name.length >= 30
+                      ? item.name.substring(0, 30) + "..."
+                      : item.name}
+                  </h1>
+                  <div className="info">
+                    <div className="year">
+                      {item.released && item.released.substring(0, 4)}
+                    </div>
+                    <div className="score">{item.metacritic}/100</div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
-      </Slider>
-      <br />
+            ))}
+          </Slider>
+          <br />
+        </>
+      )}
     </CarouselArea>
   );
 }

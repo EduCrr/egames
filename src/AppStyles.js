@@ -56,4 +56,32 @@ export const AppStylesCarousel = styled.div`
       }
     }
   }
+  @media screen and (max-width: 1024px) {
+    .slick-arrow {
+      display: none;
+    }
+  }
+`;
+
+export const AppStylesCarouselResponsive = styled.div`
+  @media screen and (max-width: 1024px) {
+    .photo {
+      width: 25% !important;
+    }
+  }
+  @media screen and (max-width: 950px) {
+    .photo {
+      width: 33% !important;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .photo {
+      width: 50% !important;
+    }
+  }
+  @media screen and (max-width: 465px) {
+    .photo {
+      width: 100% !important;
+    }
+  }
 `;
