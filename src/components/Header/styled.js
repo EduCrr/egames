@@ -6,7 +6,8 @@ export const HeaderArea = styled.header`
   top: 0;
   left: 0;
   right: 0;
-  height: 100px;
+  height: ${(props) => (props.menu ? "70px" : "100px")};
+  transition: all ease 0.4s;
   max-width: 1200px;
   margin: auto;
 
@@ -15,6 +16,7 @@ export const HeaderArea = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     .logo {
       font-size: 30px;
     }
@@ -31,6 +33,11 @@ export const HeaderArea = styled.header`
           color: #55c57a;
         }
       }
+    }
+  }
+  @media screen and (max-width: 1024px) {
+    nav {
+      padding: 0px 20px;
     }
   }
 `;

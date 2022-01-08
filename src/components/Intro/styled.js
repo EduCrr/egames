@@ -8,7 +8,7 @@ export const IntroArea = styled.div`
     max-width: 1200px;
     margin-bottom: 4rem;
     .leftSide {
-      width: 450px;
+      max-width: 450px;
       padding-right: 30px;
     }
     .rightSide {
