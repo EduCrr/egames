@@ -86,6 +86,7 @@ export default function CarouselListGames({ data }) {
               <img
                 src={item.background_image}
                 onClick={() => handleChangeUrl(item.id)}
+                alt={item.name}
               />
 
               <div className="text">

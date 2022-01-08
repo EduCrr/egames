@@ -89,7 +89,7 @@ export default function Game() {
       <div className="description">
         <div className="photoSide">
           <div className="photo">
-            <img src={game.background_image} />
+            <img src={game.background_image} alt={game.name} />
           </div>
         </div>
         <div className="descSide">
@@ -137,7 +137,7 @@ export default function Game() {
                       {achievements.results &&
                         achievements.results.map((item, k) => (
                           <div className="items" key={k}>
-                            <img src={item.image} />
+                            <img src={item.image} alt={item.name} />
                             <h3>{item.name}</h3>
                             <p>{item.description}</p>
                           </div>
@@ -186,7 +186,7 @@ export default function Game() {
           {images &&
             images.map((item, k) => (
               <div className={`div${k + 1}`} key={k}>
-                <img src={item.image} />
+                <img src={item.image} alt={item.name} />
               </div>
             ))}
         </div>

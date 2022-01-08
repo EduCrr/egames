@@ -40,21 +40,17 @@ export default function Carousel({ data, loading }) {
 
   const settings = {
     dots: false,
-    infinite: false,
+    infinite: true,
     speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
-    initialSlide: 0,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
+    slidesToShow: 3,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          arrows: false,
           slidesToShow: 3,
           slidesToScroll: 3,
-          infinite: true,
         },
       },
       {
@@ -66,7 +62,7 @@ export default function Carousel({ data, loading }) {
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 580,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -97,6 +93,7 @@ export default function Carousel({ data, loading }) {
                 <div className="photo">
                   <img
                     src={item.background_image}
+                    alt={item.name}
                     onClick={() => handleLink(item.id)}
                   />
                 </div>

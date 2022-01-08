@@ -38,7 +38,7 @@ export default function Future() {
           <div className="singleGame">
             <div className="info">
               <div className="photo">
-                <img src={game.background_image} />
+                <img src={game.background_image} alt={game.name} />
               </div>
               <div className="desc">
                 <h1>Upcoming Games</h1>

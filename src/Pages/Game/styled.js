@@ -63,7 +63,7 @@ export const GameArea = styled.section`
       }
     }
     .achievements {
-      width: 450px;
+      max-width: 450px;
       .slick-slide {
         height: 230px !important;
         margin: auto !important;
@@ -180,6 +180,26 @@ export const GameArea = styled.section`
   @media screen and (max-width: 550px) {
     h1 {
       font-size: 35px;
+    }
+    .achievements {
+      width: 100%;
+    }
+    .initialInfo {
+      align-items: center !important;
+      h1 {
+        font-size: 35px !important;
+      }
+      .genres {
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        p {
+          margin-bottom: 10px;
+        }
+      }
+    }
+    .vote {
+      padding-right: 20px !important;
     }
   }
 `;

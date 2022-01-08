@@ -68,6 +68,34 @@ export default {
           `/games?genres=4&key=${API_KEY}&page_size=6&page=${page}`
         ),
       },
+      {
+        slug: "rpg",
+        title: "RPG",
+        items: await basicFetch(
+          `/games?genres=5&key=${API_KEY}&page_size=20&page=${page}`
+        ),
+      },
+      {
+        slug: "racing",
+        title: "Racing",
+        items: await basicFetch(
+          `/games?genres=1&key=${API_KEY}&page_size=20&page=${page}`
+        ),
+      },
+      {
+        slug: "multiplayer",
+        title: "Multiplayer",
+        items: await basicFetch(
+          `/games?genres=59&key=${API_KEY}&page_size=20&page=${page}`
+        ),
+      },
+      {
+        slug: "fighting",
+        title: "Fighting",
+        items: await basicFetch(
+          `/games?genres=6&key=${API_KEY}&page_size=20&page=${page}`
+        ),
+      },
     ];
   },
   getSearch: async (type, year, page, genre, slug) => {
@@ -96,41 +124,3 @@ export default {
     }
   },
 };
-
-/*
- {
-        slug: "rpg",
-        title: "RPG",
-        items: await basicFetch(
-          `/games?genres=5&key=${API_KEY}&page_size=20&page=${page}`
-        ),
-      },
-      {
-        slug: "racing",
-        title: "Racing",
-        items: await basicFetch(
-          `/games?genres=1&key=${API_KEY}&page_size=20&page=${page}`
-        ),
-      },
-      {
-        slug: "multiplayer",
-        title: "Multiplayer",
-        items: await basicFetch(
-          `/games?genres=59&key=${API_KEY}&page_size=20&page=${page}`
-        ),
-      },
-      {
-        slug: "fighting",
-        title: "Fighting",
-        items: await basicFetch(
-          `/games?genres=6&key=${API_KEY}&page_size=20&page=${page}`
-        ),
-      },
-
-
-
-
-
-    
-
-*/

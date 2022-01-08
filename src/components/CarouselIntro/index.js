@@ -42,7 +42,7 @@ export default function CarouselIntro() {
               popular.map((item, k) => (
                 <div className="photo" key={k}>
                   <Link to={`game/${item.id}`}>
-                    <img src={item.background_image} />
+                    <img src={item.background_image} alt={item.name} />
                   </Link>
                   <div className="text">
                     <div className="title">

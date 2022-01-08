@@ -61,6 +61,11 @@ export const AppStylesCarousel = styled.div`
       display: none;
     }
   }
+  @media screen and (max-width: 768px) {
+    h1 {
+      text-align: center;
+    }
+  }
 `;
 
 export const AppStylesCarouselResponsive = styled.div`

@@ -29,6 +29,9 @@ export default function Header() {
           position: blackHeader ? "fixed" : "none",
           zIndex: blackHeader ? "9" : "9",
           transition: "all ease 0.5s",
+          top: 0,
+          left: 0,
+          right: 0,
         }}
       ></div>
       <HeaderArea menu={blackHeader}>
