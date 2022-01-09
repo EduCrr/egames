@@ -42,6 +42,7 @@ export default function Game() {
 
   const loadSameGame = async () => {
     let json = await Api.getSameSeries(id);
+    console.log(json);
     setSame(json.results);
   };
 
@@ -110,14 +111,26 @@ export default function Game() {
             <h3>Developer</h3>
             <p>{game.developers && game.developers[0].name}</p>
           </div>
+          {game.metacritic && (
+            <div>
+              <h3>Metacritic</h3>
+              <p>{game.metacritic}/100</p>
+            </div>
+          )}
           <div>
-            <h3>Metacritic</h3>
-            <p>{game.metacritic}/100</p>
+            {game.metacritic && (
+              <>
+                <h3>Metacritic</h3>
+                <p>{game.metacritic}/100</p>
+              </>
+            )}
           </div>
-          <div>
-            <h3>Released</h3>
-            <p>{game.released}</p>
-          </div>
+          {game.released && (
+            <div>
+              <h3>Released</h3>
+              <p>{game.released}</p>
+            </div>
+          )}
         </div>
         <div className="achievements">
           {loading ? (

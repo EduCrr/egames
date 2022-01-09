@@ -6,8 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { CarouselArea } from "./styled";
 export default function Carousel({ data, loading }) {
   let navigate = useNavigate();
-  function SamplePrevArrow(props) {
-    const { className, style, onClick } = props;
+  function SamplePrevArrow({ className, style, onClick }) {
     return (
       <div
         className={className}
@@ -22,8 +21,7 @@ export default function Carousel({ data, loading }) {
     );
   }
 
-  function SampleNextArrow(props) {
-    const { className, style, onClick } = props;
+  function SampleNextArrow({ className, style, onClick }) {
     return (
       <div
         className={className}
@@ -40,24 +38,17 @@ export default function Carousel({ data, loading }) {
 
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: data.length >= 3 ? true : false,
     speed: 500,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
     slidesToShow: 3,
+    slidesToScroll: 3,
     responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-        },
-      },
       {
         breakpoint: 768,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2,
           initialSlide: 2,
         },
       },
@@ -65,7 +56,6 @@ export default function Carousel({ data, loading }) {
         breakpoint: 580,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1,
         },
       },
     ],
@@ -111,7 +101,11 @@ export default function Carousel({ data, loading }) {
                     <div className="year">
                       {item.released && item.released.substring(0, 4)}
                     </div>
-                    <div className="score">{item.metacritic}/100</div>
+                    {item.metacritic ? (
+                      <div className="score">{item.metacritic}/100</div>
+                    ) : (
+                      <div className="score">Not updated</div>
+                    )}
                   </div>
                 </div>
               </div>
