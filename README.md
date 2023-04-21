@@ -1,7 +1,3 @@
-<p align="center">
-http://edugames.epizy.com/
-</p>
-
 <h1 align="center">Sobre o projeto</h1>
 <p align="center">
  Versão 1.0 finalizada!
