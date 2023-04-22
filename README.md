@@ -1,7 +1,6 @@
 <h1 align="center">Sobre o projeto</h1>
 <p align="center">
  Versão 1.0 finalizada!
- Versão 2.0 em andamento...
 </p>
 <div align="center">
 <img src="https://user-images.githubusercontent.com/87316285/147713350-f5c18560-18ac-40b1-af15-41b8d3ae0301.png" width="700px" />
